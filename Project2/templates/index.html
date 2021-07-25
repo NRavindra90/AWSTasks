@@ -1,36 +1,33 @@
 {% extends 'common.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>AWS With Ravi</title>
+{% block content %}
        <style>
-          .p1{
-              text-align: center;
-              color: red;
-          }
-      </style>
+        #p1{
+            border: 1px solid black;
+            text-align: center;
+            font-size: 20px;
+            font-family: "Bell MT";
+            background-color: blue;
+            color: white;
+        }
+       #p2{
+            border: 1px solid black;
+            text-align: center;
+            font-size: 20px;
+            font-family: "Bell MT";
 
-  </head>
-  <body>
-   {% block content %}
+       }
+       </style>
        <form action="{% url 'saveproduct' %}" method="post" enctype="multipart/form-data">
        {% csrf_token %}
-         <table  align="center" border="2">
+         <table  align="center" style="border: 1px solid green">
          <tr>
             <th>Product Number</th>
             <td><input type="text" name="t1" class="form-control" required></td>
          </tr>
          <tr>
             <th>Product Name </th>
-            <td><input type="text" name="t2" class="form-control is-invalid" required></td>
+            <td><input type="text" name="t2" class="form-control" required></td>
          </tr>
          <tr>
             <th>Price</th>
@@ -48,34 +45,25 @@
        <br><br>
        <table align="center" width="50%" border="2">
           {% if Product_data %}
-            <tr>
-              <th>Number</th>
-              <th>Name</th>
-              <th >Price</th>
-              <th >Image</th>
-              <th>Delete</th>
+            <tr  id="p1">
+              <th  id="p1">Number</th>
+              <th id="p1">Name</th>
+              <th id="p1">Price</th>
+              <th id="p1">Image</th>
+              <th id="p1">Delete</th>
             </tr>
            {% for product in Product_data%}
-               <tr>
-               <td class="p1">{{ product.Product_id }}</td>
-               <td class="p1" >{{ product.Product_Name }}</td>
-               <td class="p1" >{{ product.Product_Price }}</td>
-               <td><img src="{{ product.Product_Image.url }}" width="120" height="100"> </td>
-                   <td><a href="{% url 'delete_product' %}?id={{ product.Product_id }}"><img src="{% static 'images/bin.png' %}" width="40" height="40"></a></td>
+               <tr id="p2">
+               <td id="p2">{{ product.Product_id }}</td>
+               <td id="p2">{{ product.Product_Name }}</td>
+               <td id="p2">{{ product.Product_Price }}</td>
+               <td id="p2"><img src="{{ product.Product_Image.url }}" width="120" height="100"> </td>
+                   <td id="p2"><a href="{% url 'delete_product' %}?id={{ product.Product_id }}"><img src="{% static 'images/bin.png' %}" width="40" height="40"></a></td>
                </tr>
          {% endfor %}
          {% endif %}
        </table>
     {% endblock %}
-    <!-- Optional JavaScript; choose one of the two! -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
   </body>
 </html>
